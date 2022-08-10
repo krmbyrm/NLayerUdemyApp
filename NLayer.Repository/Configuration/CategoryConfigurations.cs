@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NLayer.Core;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NLayer.Entity;
 
 namespace NLayer.Repository.Configuration
 {
