@@ -14,7 +14,7 @@ namespace NLayer.Repository
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
+           // var p = new Product() { ProductFeature = new() { Color = "red" } };
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -25,9 +25,12 @@ namespace NLayer.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());// tüm asmblyi tarayıp ilgili interface i içerenleri alır
 
+            modelBuilder.Entity<ProductFeature>().HasData(
+                new ProductFeature() { Id=1,ProductId=1,Color="Red",Height=100,Width=50},
+                new ProductFeature() { Id = 2, ProductId = 2, Color = "Blue", Height = 10, Width = 5 }
+                );
 
 
             base.OnModelCreating(modelBuilder);
