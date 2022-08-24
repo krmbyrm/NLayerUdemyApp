@@ -1,5 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using NLayer.Core.Reporstories;
+using NLayer.Core.Services;
+using NLayer.Core.UnitOfWorks;
 using NLayer.Repository;
+using NLayer.Repository.Repositories;
+using NLayer.Repository.UnitOfWorks;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +16,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql("", o => o.MigrationsAssembly(""))); 
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWorks>();
+builder.Services.AddScoped(typeof(IGenericReporsitory<>),typeof(GenericRepository<>));
+//builder.Services.AddScoped(typeof(IService<>), typeof(GenericRepository<>));
+
+builder.Services.AddDbContext<AppDbContext>(x =>
+{
+    x.UseNpgsql(builder.Configuration.GetConnectionString("Postgresql"), option =>
+    {
+        option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
+    });
+});
+
+
 //AppDbContext e alýndý.
 
 

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NLayer.Core;
+using NLayer.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

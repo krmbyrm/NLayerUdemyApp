@@ -22,6 +22,7 @@ namespace NLayer.Repository
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile($"appsettings.{appSettings}.json")
                 .Build();
+            
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -32,7 +33,7 @@ namespace NLayer.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());// tüm asmblyi tarayıp ilgili interface i içerenleri alır
+           modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());// tüm asmblyi tarayıp ilgili interface i içerenleri alır
 
             modelBuilder.Entity<ProductFeature>().HasData(
                 new ProductFeature() { Id = 1, ProductId = 1, Color = "Red", Height = 100, Width = 50 },
@@ -46,8 +47,9 @@ namespace NLayer.Repository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(configuration.GetConnectionString("Postgresql"), options => options.MigrationsAssembly("NLayer.Repository"));
-
+            
+            //optionsBuilder.UseNpgsql(configuration.GetConnectionString("Postgresql"), option => option.MigrationsAssembly("NLayer.Repository"));
+            
 
         }
 
